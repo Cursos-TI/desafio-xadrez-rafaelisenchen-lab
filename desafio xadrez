@@ -1,0 +1,128 @@
+#include <stdio.h>
+
+// Requisito: Usar constantes para definicoes.
+#define TAMANHO_TABULEIRO 8.
+#define MAX_MOVIMENTO_BISPO 5 // Limite de teste do Bispo.
+#define MAX_MOVIMENTO_TORRE 5 // Limite de teste da Torre.
+#define MAX_MOVIMENTO_RAINHA 8 // Limite de teste da Rainha.
+
+const int linha_inicial = 3;
+const int coluna_inicial = 3;
+
+// --- FUNCAO DE TESTE 1: MOVIMENTACAO DA TORRE ---
+void testar_torre() {
+    // Requisito: Torre deve se mover 5 casas para a DIREITA.
+    printf("\n============================================\n");
+    printf("Teste de Limite: TORRE (5 casas para Direita)\n");
+    printf("Posicao Inicial: [%d][%d]\n", linha_inicial, coluna_inicial);
+    printf("--------------------------------------------\n");
+
+    int i; // Contador para o loop.
+    int linha_atual = linha_inicial;
+    int coluna_atual = coluna_inicial;
+
+    // Requisito: Usar estruturas de repeticao para a avaliacao.
+    // O loop ira simular o movimento casa por casa.
+  
+    for (i = 1; i <= MAX_MOVIMENTO_TORRE; i++) {
+        
+        // Para a DIREITA, a coluna aumenta.
+        coluna_atual = coluna_atual + 1; 
+      
+        if (coluna_atual >= TAMANHO_TABULEIRO) {
+            printf("MOVIMENTO INVALIDO: Casa [%d][%d] fora do tabuleiro.\n", linha_atual, coluna_atual);
+            printf("Limite atingido na %d casa de %d.\n", i, MAX_MOVIMENTO_TORRE);
+            return; // Termina a funcao assim que o limite for quebrado.
+        }
+
+        // saida de dados de forma clara.
+        printf("Casa %d: Destino [%d][%d] - Direita\n", i, linha_atual, coluna_atual);
+    }
+    
+    printf("SUCESSO: Torre completou %d movimentos validos.\n", MAX_MOVIMENTO_TORRE);
+}
+
+
+// --- FUNCAO DE TESTE 2: MOVIMENTACAO DO BISPO ---
+void testar_bispo() {
+    // Requisito: Bispo deve se mover 5 casas na DIAGONAL SUPERIOR DIREITA.
+    printf("\n============================================\n");
+    printf("Teste de Limite: BISPO (5 casas Diagonal Superior Direita)\n");
+    printf("Posicao Inicial: [%d][%d]\n", linha_inicial, coluna_inicial);
+    printf("--------------------------------------------\n");
+
+    int i; 
+    int linha_atual = linha_inicial;
+    int coluna_atual = coluna_inicial;
+
+    // Requisito: Usar estruturas de repeticao.
+    for (i = 1; i <= MAX_MOVIMENTO_BISPO; i++) {
+        
+        // Movimento Diagonal Superior (Cima) Direita:
+        // "Superior" (Cima) diminuir o indice da linha.
+        // "Direita" aumentar o indice da coluna.
+        linha_atual = linha_atual - 1; 
+        coluna_atual = coluna_atual + 1; 
+
+        // Verifica se saiu do limite do tabuleiro.
+        if (linha_atual < 0 || coluna_atual >= TAMANHO_TABULEIRO) {
+            printf("MOVIMENTO INVALIDO: Casa [%d][%d] fora do tabuleiro.\n", linha_atual, coluna_atual);
+            printf("Limite atingido na %d casa de %d.\n", i, MAX_MOVIMENTO_BISPO);
+            return; 
+        }
+
+        // Imprime a saida de dados conforme a regra de nomenclatura (Combinacao de direcoes basicas).
+        // Nomenclatura do Bispo: "Cima Direita"
+        printf("Casa %d: Destino [%d][%d] - Cima Direita\n", i, linha_atual, coluna_atual);
+    }
+    
+    printf("SUCESSO: Bispo completou %d movimentos validos.\n", MAX_MOVIMENTO_BISPO);
+}
+
+
+// --- FUNCAO DE TESTE 3: MOVIMENTACAO DA RAINHA ---
+void testar_rainha() {
+    // Requisito: Rainha deve se mover 8 casas para a ESQUERDA.
+    printf("\n============================================\n");
+    printf("Teste de Limite: RAINHA (8 casas para Esquerda)\n");
+    printf("Posicao Inicial: [%d][%d]\n", linha_inicial, coluna_inicial);
+    printf("--------------------------------------------\n");
+    
+    int i; 
+    int linha_atual = linha_inicial;
+    int coluna_atual = coluna_inicial;
+    
+    // Usar estruturas de repeticao.
+    // A Rainha, se move como uma Torre na horizontal (apenas nesse teste).
+    for (i = 1; i <= MAX_MOVIMENTO_RAINHA; i++) {
+        
+        // Para a ESQUERDA, a coluna diminui.
+        coluna_atual = coluna_atual - 1; 
+
+        // Verifica se saiu do limite (coluna nao pode ser negativa).
+        if (coluna_atual < 0) {
+            printf("MOVIMENTO INVALIDO: Casa [%d][%d] fora do tabuleiro.\n", linha_atual, coluna_atual);
+            printf("Limite atingido na %d casa de %d.\n", i, MAX_MOVIMENTO_RAINHA);
+            return; 
+        }
+
+        // Imprime a saida.
+        printf("Casa %d: Destino [%d][%d] - Esquerda\n", i, linha_atual, coluna_atual);
+    }
+    
+    printf("SUCESSO: Rainha completou %d movimentos validos.\n", MAX_MOVIMENTO_RAINHA);
+}
+
+
+// --- FUNCAO PRINCIPAL ---
+int main() {
+    
+    // Chamada das funcoes de teste para avaliar o desempenho e limites.
+    testar_torre();
+    testar_bispo();
+    testar_rainha();
+    
+    printf("\nAnalise de limites de utilizacao concluida.\n");
+
+    return 0; 
+}
